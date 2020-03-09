@@ -14,13 +14,14 @@ class App extends React.Component {
       student_name: '',
       college_name: '',
       college_id: '',
-      department: 'empty',
+      department: 'Select Department',
       year: 'empty',
       mobile: '',
       e1: 'empty',
       e2: 'empty',
       e3: 'empty',
       e4: 'empty',
+      edit:true,
       details: {
         list: []
       },
@@ -30,6 +31,7 @@ class App extends React.Component {
       }
     }
     this.getDetails();
+    this.getEdit();
   }
 
   handleCol = selectedOption => {
@@ -46,7 +48,7 @@ class App extends React.Component {
 
   getDetails = async () => {
     const response = await axios.get(
-      "https://onspotbackend.herokuapp.com/list/" + this.state.desk,
+      "http://api.mathrix.in/list/" + this.state.desk,
       {},
       {}
     );
@@ -60,11 +62,40 @@ class App extends React.Component {
     console.log(response.data);
   }
 
+  getEdit = async () => {
+    const response = await axios.get(
+      "http://localhost:5000/view/" + this.props.match.params.id,
+      {},
+      {}
+    );
+
+    let l = response.data.list[0];
+    console.log(l);
+    this.setState({
+      mathrix_id: l.mathrix_id,
+      student_name: l.student_name,
+      college_name: l.college_name,
+      college_id: l.college_id,
+      department: l.department,
+      selectedOption:{
+        value:l.college_name,
+        label:l.college_name
+      },
+
+      mobile: l.mobile,
+      e1: l.events[0],
+      e2: l.events[1],
+      e3: l.events[2],
+      e4: l.events[3]
+    })
+
+  }
+
   Register = async () => {
 
 
     const response = await axios.post(
-      "https://onspotbackend.herokuapp.com/register",
+      "http://api.mathrix.in/register",
       {
         desk: this.state.desk,
         mathrix_id: this.state.mathrix_id,
@@ -172,6 +203,7 @@ class App extends React.Component {
       })
     }
 
+
     return (
       <Container>
         <Row>
@@ -215,7 +247,7 @@ class App extends React.Component {
                       department: e.target.value
                     })
                   }} className="custom-select">
-                    <option value="empty">Select Department</option>
+                   <option value="" disabled selected>{dat.department}</option>
                     {op}
                   </select>
                 </FormGroup>

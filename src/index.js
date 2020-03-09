@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import List from './List';
+import Edit from './Edit';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-table/react-table.css";
@@ -12,6 +13,8 @@ const Routing = () => {
         <Switch>
             <Route path="/" component={App} exact />
             <Route path="/list" component={List} exact />
+            <Route path="/edit/:id" component={Edit} exact />
+
         </Switch>
     )
 }

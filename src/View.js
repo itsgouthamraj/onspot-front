@@ -18,7 +18,7 @@ class View extends React.Component {
 
     getDetails = async () => {
         const response = await axios.get(
-            "https://onspotbackend.herokuapp.com/list/",
+            "http://api.mathrix.in/list/",
             {},
             {}
         );

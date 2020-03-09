@@ -9,18 +9,19 @@ class App extends React.Component {
     super(props);
     this.state = {
       desk: 0,
-      mathrix_id: '',
+      mathrix_id: 'MAT20',
       mid: '',
       student_name: '',
       college_name: '',
       college_id: '',
-      department: 'empty',
+      department: 'Select Department',
       year: 'empty',
       mobile: '',
       e1: 'empty',
       e2: 'empty',
       e3: 'empty',
       e4: 'empty',
+      edit:false,
       details: {
         list: []
       },
@@ -34,7 +35,7 @@ class App extends React.Component {
 
   handleCol = selectedOption => {
     if (selectedOption.value === 'Other') {
-      let col = prompt("Enter COllege Name");
+      let col = prompt("Enter College Name");
       let nu = { value: col, label: col }
       this.setState({ selectedOption: nu });
       console.log(`Option selected:`, selectedOption);
@@ -46,7 +47,7 @@ class App extends React.Component {
 
   getDetails = async () => {
     const response = await axios.get(
-      "https://onspotbackend.herokuapp.com/list/" + this.state.desk,
+      "http://api.mathrix.in/list/" + this.state.desk,
       {},
       {}
     );
@@ -64,7 +65,7 @@ class App extends React.Component {
 
 
     const response = await axios.post(
-      "https://onspotbackend.herokuapp.com/register",
+      "http://api.mathrix.in/register",
       {
         desk: this.state.desk,
         mathrix_id: this.state.mathrix_id,

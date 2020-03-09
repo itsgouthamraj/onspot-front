@@ -14,7 +14,7 @@ export default class List extends Component {
 
     fetchData = async () => {
         const response = await axios.get(
-            "https://onspotbackend.herokuapp.com/list",
+            "http://api.mathrix.in/list",
             {},
             {}
         );
